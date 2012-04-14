@@ -32,15 +32,10 @@ if Meteor.is_client
       $(evt.target).removeAttr("checked")
   
   Template.item.events =
-    'blur input': (evt) ->
-      task = Tasks.findOne this._id
-      task.editing = false
-      Tasks.update {_id: this._id}, task 
-
     'click #done': (evt) ->
       task = Tasks.findOne this._id
       task.completed = $(evt.target).attr("checked") == "checked"
-      Tasks.update {_id: this._id}, task 
+      Tasks.update {_id: this._id}, task
 
     'dblclick .text': (evt) ->
       task = Tasks.findOne this._id
@@ -49,13 +44,17 @@ if Meteor.is_client
       Tasks.update {_id: this._id}, task, (err) ->
         $(selector).focus().select() unless err
 
+    'blur input.edit': (evt) ->
+      task = Tasks.findOne this._id
+      task.editing = false
+      Tasks.update {_id: this._id}, task 
+
     'keyup input.edit': (evt) ->
       if evt.type == "keyup" && evt.which == 13
         task = Tasks.findOne this._id
         task.editing = false
         task.updated = new Date()
         task.text = $(evt.target).val()
-
         Tasks.update {_id: this._id}, task, (err) =>
           alert("Sorry, an error prevent the changes to be saved") if err
 
