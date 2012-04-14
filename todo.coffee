@@ -7,17 +7,11 @@ if Meteor.is_client
   Template.todo.tasks = ->
     Tasks.find {}, {sort: {completed: 1, updated: -1, created: -1}}
 
-  Template.todo.clearItemsText = ->
-    "Clear completed"
-
   Template.todo.remainingTodos = ->
     Tasks.find({completed: false}).count()
 
   Template.todo.hasCompleted = ->
     Tasks.find({completed: true}).count() > 0
-
-  Template.todo.itemsLeftText = ->
-    "left"
 
   Template.todo.events =
     'keyup #new-todo' : (evt) ->
