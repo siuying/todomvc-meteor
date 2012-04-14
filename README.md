@@ -10,8 +10,8 @@ You can view the site at: [todomvc.meteor.com](http://todomvc.meteor.com)
 Credits
 =======
 
-Stylesheet from [TodoMVC](https://github.com/addyosmani/todomvc)
-Meteor from [Meteor](http://meteor.com)
+- Stylesheet from [TodoMVC](https://github.com/addyosmani/todomvc)
+- Meteor from [Meteor](http://meteor.com)
 
 License
 =======
