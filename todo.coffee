@@ -44,10 +44,10 @@ if Meteor.is_client
 
     'dblclick .text': (evt) ->
       task = Tasks.findOne this._id
-      task.editing = true      
+      task.editing = true
       selector = "#i-#{this._id} input.edit"
-      Tasks.update {_id: this._id}, task, (e) ->
-        $(selector).focus().select()
+      Tasks.update {_id: this._id}, task, (err) ->
+        $(selector).focus().select() unless err
 
     'keyup input.edit': (evt) ->
       if evt.type == "keyup" && evt.which == 13
@@ -55,7 +55,10 @@ if Meteor.is_client
         task.editing = false
         task.updated = new Date()
         task.text = $(evt.target).val()
-        Tasks.update {_id: this._id}, task
+
+        Tasks.update {_id: this._id}, task, (err) =>
+          alert("Sorry, an error prevent the changes to be saved") if err
+
       return false
 
 if Meteor.is_server
